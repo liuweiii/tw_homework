@@ -18,6 +18,12 @@
         <pre>{{ item }}</pre>
     {% endfor %}
     <pre>----------------------</pre>
+    {% if discount_sum != None %}
+    {% for item in discount_sum %}
+        <pre>{{ item }}</pre>
+    {% endfor %}
+    <pre>----------------------</pre>
+    {% endif %}
     <pre>总计：{{ "%.2f" % total }}（元）</pre>
     {% if save != 0 %}
     <pre>节省：{{ "%.2f" % save }}（元）</pre>

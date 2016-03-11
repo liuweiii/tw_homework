@@ -3,13 +3,9 @@ from flask import Flask
 from flask import request, render_template
 from services.cash_machine_service import to_bill_list
 from common.exception import ProductNotFoundException
+from models.discount import Buy2Save1
 
 app = Flask(__name__)
-
-
-@app.route("/", methods=["GET"])
-def input_bill():
-    return render_template("index.html", result="SHOW_INPUT")
 
 
 def render_out(bill_list):
@@ -25,6 +21,11 @@ def render_out(bill_list):
         out.append(u"名称：%s，数量：%d %s，单价：%.2f（元），%s" %
                    (product.name, count, product.unit, product.price, this_product_total_describe))
     return out, total, save
+
+
+@app.route("/", methods=["GET"])
+def input_bill():
+    return render_template("index.html", result="SHOW_INPUT")
 
 
 @app.route("/", methods=["POST"])
@@ -43,7 +44,8 @@ def process_bill():
                 shop_list.append(striped_item)
         bill_list = to_bill_list(shop_list)
         out, total, save = render_out(bill_list)
-        return render_template("index.html", result="SHOW_RESULT", out=out, total=total, save=save)
+        return render_template("index.html", result="SHOW_RESULT", out=out, total=total, save=save,
+                               discount_sum=Buy2Save1.summarize())
     except ValueError:
         return show_error()
     except ProductNotFoundException:
