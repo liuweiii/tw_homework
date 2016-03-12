@@ -1,6 +1,13 @@
 CHANGES
 =======
 
+* [tech][liuwei] remove assertGreaterThan to support python2.6
+* [tech][liuwei] remove assertGreaterThan to support python2.6
+* [tech][liuwei] modify travis-ci，script key
+* [tech][liuwei] modify travis-ci
+* [tech][liuwei] init travis-ci
+* [tech][liuwei] init travis-ci
+* [tech][liuwei]refactor parse shop list
 * [tech][liuwei]refactor;add mock;add test cases
 * [tech][liuwei]function finished
 * [tech][liuwei]function finished
