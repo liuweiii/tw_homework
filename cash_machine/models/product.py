@@ -23,5 +23,5 @@ class Product(object):
         try:
             return Product(result["name"], result["unit"], float(result["price"]),
                            result["clazz"], code, result["discount"])
-        except KeyError:
-            raise ProductParseException()
+        except KeyError as e:
+            raise ProductParseException(e.message)

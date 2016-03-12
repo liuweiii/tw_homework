@@ -10,9 +10,9 @@
     <br/>
     <input type="submit" value="提交"/>
 </form>
-{% if result == "SHOW_ERROR" %}
+{% if show == "ERROR" %}
 <h3>{{ message }}</h3>
-{% elif result == "SHOW_RESULT"%}
+{% elif show == "RESULT"%}
     <pre>***<没钱赚商店>购物清单***</pre>
     {% for item in out %}
         <pre>{{ item }}</pre>
