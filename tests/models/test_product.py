@@ -39,7 +39,6 @@ class TestProduct(unittest.TestCase):
                 "unit_": ""
             }
             Product.get_by_code("ITEM000000")
-        except ProductParseException as e:
-            self.assertEqual(e.key, "unit")
+        except ProductParseException:
             return
         self.assertEqual(0, 1, "The key is error, but the result is succeed.")
