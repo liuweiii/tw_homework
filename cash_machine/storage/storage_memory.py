@@ -14,3 +14,13 @@ class StorageMemory(object):
             return self.tables[name][key]
         except KeyError:
             return []
+
+    def set(self, name, key, item, value):
+        self.tables[name][key][item] = value
+        print value
+
+    def get_all(self, name):
+        try:
+            return self.tables[name]
+        except KeyError:
+            return []

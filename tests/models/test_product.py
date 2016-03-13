@@ -13,7 +13,8 @@ class TestProduct(unittest.TestCase):
             "unit": "test_unit",
             "price": 123,
             "clazz": "test_clazz",
-            "discount": "test_discount"
+            "discounts": "test_discount",
+            "code": "ITEM000099"
         }
         p = Product.get_by_code("ITEM000099")
         self.assertEqual(p.code, "ITEM000099")

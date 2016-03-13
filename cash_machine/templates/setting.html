@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>打折设置</title>
+    <style type="text/css">
+    table.gridtable {
+        font-size:11px;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+    table.gridtable th {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #dedede;
+    }
+    table.gridtable td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+    }
+    </style>
+</head>
+<body>
+<a href="/" style="float:right">打印小票</a>
+<form method="post" action="/setting/" id="discount_list">
+    <table class="gridtable">
+        <tr><th>条码</th><th>名称</th><th>单位</th><th>价格</th><th>折扣设置</th></tr>
+        {% for product in products %}
+        <tr style="background-color: #d4e3e5" onmouseover="this.style.backgroundColor='#ffff66';"
+            onmouseout="this.style.backgroundColor='#d4e3e5';">
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.unit }}</td>
+            <td>{{ "%.2f" % product.price }}</td>
+            <td><input type="checkbox" name="{{ product.code }}.Buy2Save1"
+                    {% if product.has_discount("Buy2Save1") %}
+                       checked="checked"
+                    {% endif %}
+                />买二送一
+                <input type="checkbox" name="{{ product.code }}.Discount95"
+                    {% if product.has_discount("Discount95") %}
+                       checked="checked"
+                    {% endif %}
+                />95折
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p/>
+    <input type="submit" value="确定"/>
+</form>
+
+</body>
+</html>

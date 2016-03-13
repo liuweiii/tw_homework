@@ -1,6 +1,7 @@
 CHANGES
 =======
 
+* [tech][liuwei] refactor for better testing
 * [tech][liuwei] remove assertGreaterThan to support python2.6
 * [tech][liuwei] remove assertGreaterThan to support python2.6
 * [tech][liuwei] modify travis-ci，script key

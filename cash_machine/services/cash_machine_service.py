@@ -5,7 +5,7 @@ from cash_machine.models.product import Product
 from cash_machine.models.bill import Bill
 
 
-def to_bill_list(shop_list):
+def _to_bill_list(shop_list):
     def decode(l):
         pairs = l.split("-")
         code_ = pairs[0]
@@ -23,7 +23,7 @@ def to_bill_list(shop_list):
     return products
 
 
-def render_out(bill_list):
+def _render_out(bill_list):
     products_describe = []
     total_price = 0
     save_total_price = 0
@@ -41,11 +41,15 @@ def render_out(bill_list):
 def generate_bill(shop_list_string):
     try:
         shop_list = json.loads(shop_list_string)
-        bill_list = to_bill_list(shop_list)
-        return True, render_out(bill_list)
+        bill_list = _to_bill_list(shop_list)
+        return True, _render_out(bill_list)
     except ValueError:
         return False, u"输入参数有误"
     except ProductNotFoundException:
         return False, u"输入的条形码找不到对应商品"
     except Exception as e:
         return False, u"这个错误[{0}]没被考虑到... ...".format(e.message)
+
+
+def get_products():
+    return Product.get_products()
