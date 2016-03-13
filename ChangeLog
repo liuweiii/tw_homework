@@ -1,6 +1,8 @@
 CHANGES
 =======
 
+* [tech][liuwei] add werkzeug
+* [tech][liuwei] refactor; add test cases
 * [tech][liuwei] setting discount
 * [tech][liuwei] refactor for better testing
 * [tech][liuwei] remove assertGreaterThan to support python2.6
