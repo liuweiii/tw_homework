@@ -6,3 +6,4 @@ setuptools >= 16.0
 testtools >= 1.4.0
 requests >= 2.9.0
 mock >= 1.0.1
+werkzeug >= 0.11.4
