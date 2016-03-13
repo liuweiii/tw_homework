@@ -2,6 +2,7 @@ import unittest
 import mock
 from cash_machine.models.product import Product
 from cash_machine.common.exception import ProductNotFoundException, ProductParseException
+from cash_machine.models.discount import NoDiscount
 
 
 class TestProduct(unittest.TestCase):
@@ -43,3 +44,21 @@ class TestProduct(unittest.TestCase):
         except ProductParseException:
             return
         self.assertEqual(0, 1, "The key is error, but the result is succeed.")
+
+    @mock.patch("cash_machine.storage.storage.storage.get_all")
+    def test_get_products(self, mock_storage_get_all):
+        mock_storage_get_all.return_value = {
+            "ITEM01": {'code': "ITEM01", 'clazz': '', 'discounts': [], 'name': 't1', 'price': 12, 'unit': 'u'},
+            "ITEM02": {'code': "ITEM02", 'clazz': '', 'discounts': [], 'name': 't2', 'price': 12, 'unit': 'u'}
+        }
+        products = Product.get_products()
+        self.assertEqual(len(products), 2)
+        for product in products:
+            self.assertEqual(product.price, 12)
+
+    def test_reset_products(self):
+        Product.reset_products()
+        products = Product.get_products()
+        for product in products:
+            self.assertTrue(product.has_discount(NoDiscount))
+            self.assertEqual(product.discount_length(), 1)

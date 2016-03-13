@@ -3,6 +3,7 @@ import json
 from cash_machine.common.exception import ProductNotFoundException
 from cash_machine.models.product import Product
 from cash_machine.models.bill import Bill
+from cash_machine.models.discount import Discount
 
 
 def _to_bill_list(shop_list):
@@ -53,3 +54,22 @@ def generate_bill(shop_list_string):
 
 def get_products():
     return Product.get_products()
+
+
+def set_discount(discounts_list_string):
+    def __format_code_discounts():
+        code_discounts_ = dict()
+        for items in discounts_list_string:
+            code, discount_string = items.split(".")
+            discount = Discount.from_string(discount_string)
+            if code not in code_discounts_:
+                code_discounts_[code] = [discount]
+            code_discounts_[code].append(discount)
+        return code_discounts_
+
+    code_discounts = __format_code_discounts()
+    Product.reset_products()
+
+    for item in code_discounts:
+        product = Product.get_by_code(item)
+        product.set_discounts(code_discounts[item])

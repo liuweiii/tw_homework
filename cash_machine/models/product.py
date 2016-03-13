@@ -23,6 +23,9 @@ class Product(object):
         self.__set_discounts(discounts)
         storage.set("product", self.code, "discounts", list(self._discounts))
 
+    def discount_length(self):
+        return len(self._discounts)
+
     def discount(self, count):
         if self.has_discount(Buy2Save1()):
             return Buy2Save1().out(self, count)

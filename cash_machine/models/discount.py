@@ -9,21 +9,25 @@ class Discount(object):
     _sum_describe = []
 
     @staticmethod
+    def clean_summarize():
+        Discount._sum_describe = []
+
+    @staticmethod
     def summarize():
         if len(Discount._sum_describe) == 0:
             return None
         Discount._sum_describe[0:0] = [u"买二赠一商品："]
         result = copy.deepcopy(Discount._sum_describe)
-        Discount._sum_describe = []
+        Discount.clean_summarize()
         return result
 
     @staticmethod
     def from_string(discount_string):
-        if discount_string == "NoDiscount":
+        if discount_string == str(NoDiscount()):
             return NoDiscount()
-        if discount_string == "Buy2Save1":
+        if discount_string == str(Buy2Save1()):
             return Buy2Save1()
-        if discount_string == "Discount95":
+        if discount_string == str(Discount95()):
             return Discount95()
 
 
@@ -40,11 +44,10 @@ class NoDiscount(Discount):
         return isinstance(other, NoDiscount)
 
     def __hash__(self):
-        return hash("NoDiscount")
+        return hash(self.__str__())
 
 
 class Buy2Save1(Discount):
-
     def out(self, product, count):
         assert count > 0
         save_count = count / 3
@@ -61,7 +64,7 @@ class Buy2Save1(Discount):
         return isinstance(other, Buy2Save1)
 
     def __hash__(self):
-        return hash("Buy2Save1")
+        return hash(self.__str__())
 
 
 class Discount95(Discount):
@@ -78,4 +81,4 @@ class Discount95(Discount):
         return isinstance(other, Discount95)
 
     def __hash__(self):
-        return hash("Discount95")
+        return hash(self.__str__())
